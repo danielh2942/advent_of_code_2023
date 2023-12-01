@@ -1,5 +1,4 @@
 #include <cstddef>
-#include <cstdint>
 #include <fstream>
 #include <iostream>
 #include <string>
@@ -47,37 +46,21 @@ int main(int argc, char** argv) {
 	std::vector<std::string> a{"zero","one","two","three","four","five","six","seven","eight","nine"};
 	std::vector<std::string> b{"0","1","2","3","4","5","6","7","8","9"}; 
 
-	size_t lowest_idx = 9999999999;
 	int count_b = 0;
 	while(std::getline(inp, buff)) {
+		// Part A
 		count += get_num(buff);
 		
-
 		// Part B
-		bool modifications = true;
-		while(modifications) {
-			lowest_idx = SIZE_MAX;
-			modifications = false;
-			for(size_t i = 0; i < 10; i++) {
+		for(size_t i = 0; i < 10; i++) {
+			while(true) {
 				auto found = buff.find(a[i]);
-				if(found != std::string::npos) {
-					lowest_idx = std::min(lowest_idx, found);
-				}
+				if(found == std::string::npos) break;
+				// 2 overlapping numbers count as 2 numbers
+				auto tmp = a[i][0] + b[i] + a[i][a[i].length()-1];
+				buff.replace(found,a[i].length(),tmp);
 			}
-
-			if(lowest_idx == std::string::npos) continue;
-
-			for(size_t i = 0; i < 10; i++) {
-				auto found = buff.find(a[i]);
-				if(found == std::string::npos) continue;
-				if(found == lowest_idx) {
-					std::string tmp = b[i] + a[i][a[i].length() - 1];
-					buff.replace(found, a[i].size(), tmp);
-					modifications = true;
-				}
-			}
-		}
-		
+		}	
 		count_b += get_num(buff);
 	}
 
