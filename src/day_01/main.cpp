@@ -56,9 +56,7 @@ int main(int argc, char** argv) {
 			while(true) {
 				auto found = buff.find(a[i]);
 				if(found == std::string::npos) break;
-				// 2 overlapping numbers count as 2 numbers
-				auto tmp = a[i][0] + b[i] + a[i][a[i].length()-1];
-				buff.replace(found,a[i].length(),tmp);
+				buff.replace(found+1,a[i].length() - 2,b[i]);
 			}
 		}	
 		count_b += get_num(buff);
