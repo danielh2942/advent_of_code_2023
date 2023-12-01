@@ -40,23 +40,21 @@ int main(int argc, char** argv) {
 	// Part B:
 	// replace one, two, three ,with 1,2,3 etc.
 	// do the same calculation
+
+	std::vector<std::string> a{"one","two","three","four","five","six","seven","eight","nine"};
 	std::string buff;
 	int count = 0;
-
-	std::vector<std::string> a{"zero","one","two","three","four","five","six","seven","eight","nine"};
-	std::vector<std::string> b{"0","1","2","3","4","5","6","7","8","9"}; 
-
 	int count_b = 0;
 	while(std::getline(inp, buff)) {
 		// Part A
 		count += get_num(buff);
 		
 		// Part B
-		for(size_t i = 0; i < 10; i++) {
+		for(size_t i = 0; i < 9; i++) {
 			while(true) {
 				auto found = buff.find(a[i]);
 				if(found == std::string::npos) break;
-				buff.replace(found+1,a[i].length() - 2,b[i]);
+				buff[found+1] = i + '1';			
 			}
 		}	
 		count_b += get_num(buff);
