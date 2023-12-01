@@ -71,7 +71,8 @@ int main(int argc, char** argv) {
 				auto found = buff.find(a[i]);
 				if(found == std::string::npos) continue;
 				if(found == lowest_idx) {
-					buff.replace(found, a[i].size(), b[i]);
+					std::string tmp = b[i] + a[i][a[i].length() - 1];
+					buff.replace(found, a[i].size(), tmp);
 					modifications = true;
 				}
 			}
