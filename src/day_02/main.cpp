@@ -37,10 +37,10 @@ int main(int argc, char** argv) {
 	// Part A:
 	// 12 red 13 green 14 blue
 	int id = 1;
-	int id_sum = 0;
+	unsigned long id_sum = 0;
 	// Part B
 	// Get A * B * C and add it to each
-	int pow_sum = 0;
+	unsigned long pow_sum = 0;
 	std::string buff;
 	std::vector<std::string_view> vector{};
 	while(std::getline(inp, buff)) {
@@ -48,33 +48,22 @@ int main(int argc, char** argv) {
 		int minB = 0;
 		int minC = 0;
 		split_view(buff, vector, ' ');
-		// Part A
-		bool success = true;
 		for(size_t i = 2; (i < vector.size() - 1); i += 2) {
 			int num = 0;
 			std::from_chars(vector[i].data(), vector[i].data() + vector[i].size(),num);
 			switch(vector[i+1][0]) {
 				case 'r':
-					if(num > 12) {
-						success = false;
-					}
 					minA = std::max(minA, num);
 					break;
 				case 'g':
-					if(num > 13) {
-						success = false;
-					}
 					minB = std::max(minB, num);
 					break;
 				case 'b':
-					if (num > 14) {
-						success = false;
-					}
 					minC = std::max(minC, num);
 					break;
 			}	
 		}
-		if(success) id_sum += id;
+		if((minA <= 12) && (minB <= 13) && (minC <= 14)) id_sum += id;
 		id++;
 		pow_sum += (minA * minB * minC);
 	}

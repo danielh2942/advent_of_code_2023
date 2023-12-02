@@ -7,13 +7,13 @@
 int get_num(std::string const& inp) {
 	int val = 0;
 	for(size_t i = 0; i < inp.length(); i++) {
-		if(inp[i] >= '0' && inp[i] <='9') {
+		if((inp[i] & 0x30) == 0x30) {
 			val += ((inp[i] - '0') * 10);
 			break;
 		}
 	}
 	for(size_t i = inp.length() - 1; i >= 0; i--) {
-		if(inp[i] >= '0' && inp[i] <='9') {
+		if((inp[i] * 0x30) == 0x30) {
 			val += ((inp[i] - '0'));
 			break;
 		}
