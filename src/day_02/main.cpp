@@ -1,10 +1,12 @@
 #include <algorithm>
+#include <charconv>
 #include <fstream>
 #include <iostream>
 #include <string>
+#include <string_view>
 #include <vector>
 
-size_t split(std::string const& txt, std::vector<std::string> & vec, char delim) {
+size_t split_view(std::string_view const& txt, std::vector<std::string_view> & vec, char delim) {
 	size_t pos = txt.find(delim);
 	size_t initialPos = 0;
 	vec.clear();
@@ -40,16 +42,17 @@ int main(int argc, char** argv) {
 	// Get A * B * C and add it to each
 	int pow_sum = 0;
 	std::string buff;
-	std::vector<std::string> vector{};
+	std::vector<std::string_view> vector{};
 	while(std::getline(inp, buff)) {
 		int minA = 0;
 		int minB = 0;
 		int minC = 0;
-		split(buff, vector, ' ');
+		split_view(buff, vector, ' ');
 		// Part A
 		bool success = true;
 		for(size_t i = 2; (i < vector.size() - 1); i += 2) {
-			int num = std::stoi(vector[i]);
+			int num = 0;
+			std::from_chars(vector[i].data(), vector[i].data() + vector[i].size(),num);
 			switch(vector[i+1][0]) {
 				case 'r':
 					if(num > 12) {
